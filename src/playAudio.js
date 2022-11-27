@@ -25,12 +25,12 @@ export default async function playAudio(oldMember, newMember) {
       guildId: channel.guild.id,
       adapterCreator: channel.guild.voiceAdapterCreator,
     });
-
-    timer = setTimeout(() => {
-      connection.destroy();
-    }, 5 * 60000);
   }
 
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    connection.destroy();
+  }, 5 * 60000);
   const player = createAudioPlayer();
   const stream = ytdl(WELCOME_SOUND, {
     filter: "audioonly",
