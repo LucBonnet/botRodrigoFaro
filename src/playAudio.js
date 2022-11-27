@@ -26,7 +26,7 @@ export default async function playAudio(oldMember, newMember) {
       adapterCreator: channel.guild.voiceAdapterCreator,
     });
 
-    timer = setInterval(() => {
+    timer = setTimeout(() => {
       connection.destroy();
     }, 5 * 60000);
   }
