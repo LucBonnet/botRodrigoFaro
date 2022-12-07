@@ -19,7 +19,7 @@ export default async function playAudio(oldMember, newMember) {
 
   const channel = newMember.channel;
 
-  if (!connection && playing == false) {
+  if (!connection || playing == false) {
     connection = joinVoiceChannel({
       channelId: channel.id,
       guildId: channel.guild.id,
@@ -31,11 +31,14 @@ export default async function playAudio(oldMember, newMember) {
   timer = setTimeout(() => {
     connection.destroy();
   }, 5 * 60000);
+
   const player = createAudioPlayer();
   const stream = ytdl(WELCOME_SOUND, {
     filter: "audioonly",
   });
+
   const resource = createAudioResource(stream);
+
   player.play(resource);
   connection.subscribe(player);
   playing = true;
